@@ -1,0 +1,1 @@
+export type ToDoStatus = "OPEN" | "IN_PROGRESS" | "DONE"
