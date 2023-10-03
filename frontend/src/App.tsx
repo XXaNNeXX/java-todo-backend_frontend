@@ -26,11 +26,12 @@ export default function App() {
 
   return (
     <>
-     <Header/>
-      <Routes>
+     <Header/><br/>
+     <AddToDo addCard={addCard}/>
+     <Routes>
         <Route path={"/"} element={<ToDoList allTodos={todo}/>}/>
-      </Routes>
-      <AddToDo addCard={addCard}/>
+     </Routes>
+
     </>
   )
 }
