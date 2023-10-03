@@ -7,7 +7,6 @@ type Add = {
 
 export default function AddToDo(props: Add) {
 
-    //const [todo, setTodo] = useState<ToDo[]>([])
     const [newTodo, setNewTodo] = useState<string>("")
 
     function onInputChange(event: ChangeEvent<HTMLInputElement>) {
@@ -15,17 +14,12 @@ export default function AddToDo(props: Add) {
     }
     function addNewTodo(event: FormEvent<HTMLFormElement>) {
         event.preventDefault()
-    }
 
-    const myNewTodo: ToDo = {
-        description: newTodo
-    }
+    const myNewTodo: ToDo = {description: newTodo}
 
     props.addCard(myNewTodo)
 
-    //const myNewTodoList: ToDo[] = [...todo, myNewTodo]
-
-    //setTodo(myNewTodoList)
+    }
 
     return (
 
@@ -34,7 +28,6 @@ export default function AddToDo(props: Add) {
                 <input value={newTodo} onChange={onInputChange}/>
                 <button>Add</button>
             </form>
-
         </div>
     )
 }
