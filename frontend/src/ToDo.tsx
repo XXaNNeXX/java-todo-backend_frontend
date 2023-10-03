@@ -1,7 +1,7 @@
 import {ToDoStatus} from "./ToDoStatus.tsx";
 
 export type ToDo = {
-    id: string
+    id?: string
     description: string
-    status: ToDoStatus
+    status?: ToDoStatus
 }
