@@ -7,6 +7,7 @@ type Add = {
 
 export default function AddToDo(props: Add) {
 
+    // const [todo, setTodo] = useState<ToDo[]>([])
     const [newTodo, setNewTodo] = useState<string>("")
 
     function onInputChange(event: ChangeEvent<HTMLInputElement>) {
@@ -18,6 +19,10 @@ export default function AddToDo(props: Add) {
     const myNewTodo: ToDo = {description: newTodo}
 
     props.addCard(myNewTodo)
+
+    /*const newTodoList: ToDo[] = [...todo, myNewTodo]
+
+    setTodo(newTodoList)*/
 
     }
 
