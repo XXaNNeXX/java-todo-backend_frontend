@@ -14,9 +14,10 @@ export default function AddToDo(props: Add) {
         setNewTodo(event.target.value)
     }
     function addNewTodo(event: FormEvent<HTMLFormElement>) {
+        setNewTodo("")
         event.preventDefault()
 
-    const myNewTodo: ToDo = {description: newTodo}
+    const myNewTodo: ToDo = {description: newTodo, status: "OPEN"}
 
     props.addCard(myNewTodo)
 
