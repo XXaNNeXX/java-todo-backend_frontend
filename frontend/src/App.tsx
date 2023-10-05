@@ -6,22 +6,24 @@ import {Route, Routes} from "react-router-dom";
 import {ToDo} from "./ToDo.tsx";
 import AddToDo from "./AddToDo.tsx";
 import axios from "axios";
+import {allPossibleTodos} from "./ToDoStatus.tsx";
 
 export default function App() {
 
   const [todo, setTodo] = useState<ToDo[]>([])
 
-    useEffect(() => {
+    function fetchData() {
         axios.get("/api/todo")
             .then(response => response.data)
             .then(response => setTodo(response))
             .catch(reason => console.error(reason.message))
-    }, [])
+    }
+    useEffect(fetchData, [])
 
     function addCard(item: ToDo) {
         axios.post("/api/todo", item)
-            .then(request1 => request1.data)
-            .then(request2 => setTodo([...todo, request2]))
+            .then(response => response.data)
+            .then(response => setTodo([...todo, response]))
             /*.then(request=> {
                 setTodo(prevState => [...prevState, request.data])
             })*/
@@ -32,9 +34,15 @@ export default function App() {
     <>
      <Header/><br/>
      <AddToDo addCard={addCard}/>
-     <Routes>
-        <Route path={"/"} element={<ToDoList allTodos={todo}/>}/>
-     </Routes>
+        <div className="ToDoLists">
+         <Routes>
+            <Route path={"/"} element={
+                allPossibleTodos.map(status => {
+                   const filteredTodos = todo.filter(todo => todo.status === status)
+                   return <ToDoList status={status} allTodos={filteredTodos} deleteCard={fetchData}/>
+                })}/>
+         </Routes>
+        </div>
 
     </>
   )
