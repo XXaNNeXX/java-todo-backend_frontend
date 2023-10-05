@@ -9,6 +9,7 @@ export default function Header() {
             <Link to={"/"}>Open</Link>
             <Link to={"/progress"}>In Progress</Link>
             <Link to={"/done"}>Done</Link>
+            <h1>My To Do List:</h1>
         </div>
     )
 }
