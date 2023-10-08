@@ -1,24 +1,31 @@
 import ToDoCard from "./ToDoCard.tsx";
 import {ToDo} from "./ToDo.tsx";
 import {ToDoStatus} from "./ToDoStatus.tsx";
+import AddToDo from "./AddToDo.tsx";
 
-type ToDoList = {
+type Props = {
     status: ToDoStatus,
-    allTodos: ToDo[]
-    deleteCard: () => void
+    todos: ToDo[]
+    onItemChange: () => void
 }
 
-export default function ToDoList(props: ToDoList) {
+export default function ToDoList(props: Props) {
 
     return (
 
         <div className="ToDoListColumn">
             <h2>{props.status}</h2>
-            {props.allTodos.map((todo => <ToDoCard
+            {
+                (props.status === "OPEN") && <AddToDo onItemChange={props.onItemChange}/>
+            }
+            <br/>
+            {
+                props.todos.map((todo => <ToDoCard
                     key={todo.id}
-                    todos={todo}
-                    deleteCard={props.deleteCard}
-            />))}
+                    todo={todo}
+                    onItemChange={props.onItemChange}/>))
+            }
+
         </div>
     )
 }
