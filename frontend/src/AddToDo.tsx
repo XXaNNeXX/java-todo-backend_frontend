@@ -1,38 +1,35 @@
-import {ChangeEvent, FormEvent, useState} from "react";
+import {ChangeEvent, useState} from "react";
+import axios from "axios";
 import {ToDo} from "./ToDo.tsx";
 
-type Add = {
-    addCard: (item: ToDo) => void
+type Props = {
+    onItemChange: () => void
 }
 
-export default function AddToDo(props: Add) {
+export default function AddToDo(props: Props) {
 
-    // const [todo, setTodo] = useState<ToDo[]>([])
-    const [newTodo, setNewTodo] = useState<string>("")
+    const [text, setText] = useState<string>("")
+
+    function addNewTodo() {
+        setText("")
+        axios.post("/api/todo", {
+            description: text,
+            status: "OPEN"
+        } as ToDo)
+            .then(props.onItemChange)
+    }
 
     function onInputChange(event: ChangeEvent<HTMLInputElement>) {
-        setNewTodo(event.target.value)
+        setText(event.target.value)
     }
-    function addNewTodo(event: FormEvent<HTMLFormElement>) {
-        setNewTodo("")
-        event.preventDefault()
 
-    const myNewTodo: ToDo = {description: newTodo, status: "OPEN"}
-
-    props.addCard(myNewTodo)
-
-    /*const newTodoList: ToDo[] = [...todo, myNewTodo]
-
-    setTodo(newTodoList)*/
-
-    }
 
     return (
 
         <div>
-            <form onSubmit={addNewTodo}>
-                <input value={newTodo} onChange={onInputChange}/>
-                <button>Add</button>
+            <form>
+                <input value={text} onChange={onInputChange}/>
+                <button onClick={addNewTodo}>Add</button>
             </form>
         </div>
     )
